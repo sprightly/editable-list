@@ -60,6 +60,13 @@ class Main
             case 'delete':
                 $this->itemModel->remove( $id );
                 break;
+            case 'update':
+                $this->itemModel->update(array(
+                    'id' => $id,
+                    'name' => $name,
+                    'count' => $count,
+                ));
+                break;
         }
 
         return $result;

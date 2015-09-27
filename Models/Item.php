@@ -37,12 +37,14 @@ class Item
      * @param $id
      * @return \StdClass
      */
-    public function getById($id) {
+    public function getById($id)
+    {
         $sql = "SELECT * FROM items WHERE id = :id";
         $q = $this->db->prepare($sql);
         $q->bindParam(":id", $id, \PDO::PARAM_INT);
         $q->execute();
         $rows = $q->fetchAll();
+
         return $this->read($rows[0]);
     }
 
@@ -88,7 +90,7 @@ class Item
      */
     public function update($data)
     {
-        $sql = "UPDATE items SET name = :name, count = :age WHERE id = :id";
+        $sql = "UPDATE items SET name = :name, count = :count WHERE id = :id";
         $q = $this->db->prepare($sql);
         $q->bindParam(":name", $data["name"]);
         $q->bindParam(":count", $data["count"], \PDO::PARAM_INT);
