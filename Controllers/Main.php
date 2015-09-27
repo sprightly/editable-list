@@ -41,7 +41,8 @@ class Main
         $action = isset($_GET['action']) ? $_GET['action'] : '';
         $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
         $count = isset($_REQUEST['count']) ? $_REQUEST['count'] : '';
-        $result = false;
+        $id = isset($_REQUEST['id']) ? (int) $_REQUEST['id'] : '';
+        $result = '';
 
         switch ($action) {
             case 'load':
@@ -55,6 +56,9 @@ class Main
                     'name' => $name,
                     'count' => $count,
                 ));
+                break;
+            case 'delete':
+                $this->itemModel->remove( $id );
                 break;
         }
 
