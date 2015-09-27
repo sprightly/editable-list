@@ -24,6 +24,7 @@ Table = {
      */
     init: function () {
         this.initialTableLoad();
+        this.doLongPolling();
     },
 
     /**
@@ -89,6 +90,30 @@ Table = {
             type: requestType,
             url: url,
             data: input
+        });
+    },
+
+    /**
+     * Initiate long-polling flow
+     */
+    doLongPolling: function (tableChecksum) {
+        var data = {
+            action: 'long-polling',
+            tableChecksum: tableChecksum
+        };
+        jQuery.ajax({
+            type: 'GET',
+            url: this.url,
+            data: data,
+            dataType: 'json',
+            context: this,
+            success: function (response) {
+                var tableChecksum = response.tableChecksum;
+
+                jQuery(this.tableId).jsGrid("loadData");
+
+                this.doLongPolling(tableChecksum);
+            }
         });
     }
 };
