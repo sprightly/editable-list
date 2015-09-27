@@ -38,7 +38,7 @@ class Item
      * @return \StdClass
      */
     public function getById($id) {
-        $sql = "SELECT * FROM clients WHERE id = :id";
+        $sql = "SELECT * FROM items WHERE id = :id";
         $q = $this->db->prepare($sql);
         $q->bindParam(":id", $id, \PDO::PARAM_INT);
         $q->execute();

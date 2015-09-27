@@ -14,7 +14,7 @@ class Main
     private $dbConfig = array(
         'db' => "mysql:host=127.0.0.1;dbname=sprightly_org_ua",
         'username' => "sprightly_org_ua",
-        'password' => "cgC6M3yFXusAxWn"
+        'password' => "cgC6M3yFXusAxWn",
     );
     private $db = null;
 
@@ -38,14 +38,20 @@ class Main
      */
     private function generateResult()
     {
-        $action = $_GET['action'];
+        $action = isset($_GET['action']) ? $_GET['action'] : '';
+        $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+        $count = isset($_REQUEST['count']) ? $_REQUEST['count'] : '';
         $result = false;
 
         switch ($action) {
             case 'load':
-                $name = isset($_GET['name']) ? $_GET['name'] : '';
-                $count = isset($_GET['count']) ? $_GET['count'] : '';
                 $result = $this->itemModel->getAll(array(
+                    'name' => $name,
+                    'count' => $count,
+                ));
+                break;
+            case 'insert':
+                $result = $this->itemModel->insert(array(
                     'name' => $name,
                     'count' => $count,
                 ));
